@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Landing Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-purple-600 to-blue-600 min-h-screen flex items-center justify-center">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-8">Something Amazing is Coming Soon!</h1>
+            <div id="countdown" class="flex justify-center space-x-4 mb-8">
+                <div class="flex flex-col items-center">
+                    <span id="days" class="text-5xl font-bold text-white"></span>
+                    <span class="text-sm uppercase text-white opacity-75">Days</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span id="hours" class="text-5xl font-bold text-white"></span>
+                    <span class="text-sm uppercase text-white opacity-75">Hours</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span id="minutes" class="text-5xl font-bold text-white"></span>
+                    <span class="text-sm uppercase text-white opacity-75">Minutes</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span id="seconds" class="text-5xl font-bold text-white"></span>
+                    <span class="text-sm uppercase text-white opacity-75">Seconds</span>
+                </div>
+            </div>
+            <button class="bg-white text-purple-600 font-bold py-3 px-8 rounded-full text-lg hover:bg-opacity-90 transition duration-300">
+                Notify Me
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Countdown timer functionality
+        function updateCountdown() {
+            // Define countdown values as strings
+            const countdownValues = {
+                days: "15",
+                hours: "12",
+                minutes: "30",
+                seconds: "00"
+            };
+
+            function updateDisplay() {
+                document.getElementById('days').textContent = countdownValues.days;
+                document.getElementById('hours').textContent = countdownValues.hours;
+                document.getElementById('minutes').textContent = countdownValues.minutes;
+                document.getElementById('seconds').textContent = countdownValues.seconds;
+            }
+
+            updateDisplay();
+
+            // Optional: Implement a simple countdown logic
+            setInterval(() => {
+                let seconds = parseInt(countdownValues.seconds);
+                let minutes = parseInt(countdownValues.minutes);
+                let hours = parseInt(countdownValues.hours);
+                let days = parseInt(countdownValues.days);
+
+                if (seconds > 0) {
+                    seconds--;
+                } else {
+                    seconds = 59;
+                    if (minutes > 0) {
+                        minutes--;
+                    } else {
+                        minutes = 59;
+                        if (hours > 0) {
+                            hours--;
+                        } else {
+                            hours = 23;
+                            if (days > 0) {
+                                days--;
+                            } else {
+                                // Reset the countdown when it reaches zero
+                                days = 5;
+                                hours = 12;
+                                minutes = 30;
+                                seconds = 0;
+                            }
+                        }
+                    }
+                }
+
+                countdownValues.seconds = seconds.toString().padStart(2, '0');
+                countdownValues.minutes = minutes.toString().padStart(2, '0');
+                countdownValues.hours = hours.toString().padStart(2, '0');
+                countdownValues.days = days.toString().padStart(2, '0');
+
+                updateDisplay();
+            }, 1000);
+        }
+
+        updateCountdown();
+    </script>
+</body>
+</html>
+
